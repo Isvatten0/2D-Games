@@ -1,6 +1,7 @@
 from settings import *
 from support import *
 from timer import Timer
+from pytmx.util_pygame import load_pygame
 
 class Game:
     def __init__(self):
