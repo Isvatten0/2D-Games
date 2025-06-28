@@ -20,7 +20,7 @@ class Game:
         self.setup()
 
         # sprites
-        self.player = Player((400,300), self.all_sprites, self.collision_sprites) # Here we are only adding the player to the first group, but giving the player aone more arguement and the player is not in the group only has acces to it so the player does not colllide with itself
+        #self.player = Player((400,300), self.all_sprites, self.collision_sprites) # Here we are only adding the player to the first group, but giving the player aone more arguement and the player is not in the group only has acces to it so the player does not colllide with itself
         #for i in range(7):
            # x,y = randint(0,WINDOW_WIDTH),randint(0,WINDOW_HEIGHT)
            # z = randint(0,300)
@@ -37,6 +37,13 @@ class Game:
 
         for collisions in map.get_layer_by_name('Collisions'):
             CollisionSprite((collisions.x,collisions.y), pygame.Surface((collisions.width,collisions.height)),self.collision_sprites)
+
+        for entity in map.get_layer_by_name('Entities'):
+            if entity.name == 'Player':
+                self.player = Player((entity.x,entity.y), self.all_sprites, self.collision_sprites)
+                self.gun = Gun(self.player, self.all_sprites)
+
+        
     def run(self):
         while self.running:
             # delta time
