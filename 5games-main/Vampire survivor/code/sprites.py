@@ -39,7 +39,7 @@ class Gun(pygame.sprite.Sprite):
         if self.player_direction.x > 0:
             self.image = pygame.transform.rotozoom(self.gun_surface,angle,1)
         else:
-            # rotate gun properly when right of the player at 5:34:43
+            # rotate gun properly when right of the player at 5:41:19
             angle = -angle
             self.image = pygame.transform.rotozoom(self.gun_surface,angle,1)
             self.image = pygame.transform.flip(self.image, False, True)
@@ -48,3 +48,9 @@ class Gun(pygame.sprite.Sprite):
         self.get_direction()
         self.rotate_gun()
         self.rect.center = self.player.rect.center + self.player_direction * self.distance
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self,surface,pos,direction,groups):
+        super().__init__(groups)
+        self.image = surface
+        self.rect = self.image.get_frect(center = pos)

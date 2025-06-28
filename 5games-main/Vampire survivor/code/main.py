@@ -17,10 +17,12 @@ class Game:
         # groups
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
+        self.bullet_sprites = pygame.sprite.Group()
         self.setup()
         self.can_shoot = True
         self.bullet_shoot_time = 0
         self.cooldown_duration = 400
+        self.load_images()
 
         # sprites
         #self.player = Player((400,300), self.all_sprites, self.collision_sprites) # Here we are only adding the player to the first group, but giving the player aone more arguement and the player is not in the group only has acces to it so the player does not colllide with itself
@@ -35,9 +37,14 @@ class Game:
             if current_time - self.bullet_shoot_time >= self.cooldown_duration:
                 self.can_shoot = True
 
+    def load_images(self):
+        self.bullet_surf = pygame.image.load(join('Vampire survivor', 'images', 'gun', 'bullet.png')).convert_alpha()
+
     def input(self):
        if pygame.mouse.get_pressed()[0] and self.can_shoot == True:
            print('shoot')
+           pos = self.gun.rect.center + self.gun.player_direction * 40
+           Bullet(self.bullet_surf, pos, self.gun.player_direction, (self.all_sprites,self.bullet_sprites))
            self.can_shoot = False
            self.bullet_shoot_time = pygame.time.get_ticks()
 
