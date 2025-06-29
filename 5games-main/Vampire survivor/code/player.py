@@ -31,7 +31,7 @@ class Player (pygame.sprite.Sprite):
 
     def input(self):
         keys = pygame.key.get_pressed()
-        self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
+        self.direction.x = int(keys[pygame.K_RIGHT] or keys[pygame.K_d]) - int(keys[pygame.K_LEFT] or keys[pygame.K_a])
         # if self.direction.x > 0 and self.direction.y == 0 :
         #    self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'right', '0.png')).convert_alpha()
         # if self.direction.x < 0 and self.direction.y == 0 :
@@ -41,7 +41,7 @@ class Player (pygame.sprite.Sprite):
         # if self.direction.y > 0:
         #    self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'down', '0.png')).convert_alpha()
         
-        self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
+        self.direction.y = int(keys[pygame.K_DOWN] or keys[pygame.K_s]) - int(keys[pygame.K_UP] or keys[pygame.K_w])
         if self.direction:
             self.direction = self.direction.normalize()
         else:
