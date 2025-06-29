@@ -84,6 +84,9 @@ class Game:
             self.display_surface.fill('black')
             self.all_sprites.draw(self.player.rect.center)
             pygame.display.update()
+
+            # test bullet sprites
+            # print(self.bullet_sprites)
         pygame.quit()
 
 if __name__ == '__main__':
