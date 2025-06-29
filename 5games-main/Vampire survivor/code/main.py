@@ -32,7 +32,7 @@ class Game:
         # timer for the gun
         self.can_shoot = True
         self.bullet_shoot_time = 0
-        self.cooldown_duration = 400
+        self.cooldown_duration = 100
 
         # setup
         self.load_images()
@@ -94,7 +94,16 @@ class Game:
             else:
                 self.spawn_positions.append((entity.x,entity.y))
 
-        
+    def bullet_collision(self):
+        if self.bullet_sprites:
+            for bullet in self.bullet_sprites:
+                # collision_sprites = pygame.sprite.spritecollide(sprite,group, dokill)
+                collision_sprites = pygame.sprite.spritecollide(bullet,self.enemy_sprites, False, pygame.sprite.collide_mask)
+                if collision_sprites:
+                    for sprite in collision_sprites:
+                        sprite.destroy()
+                    bullet.kill()
+                
     def run(self):
         while self.running:
             # delta time
@@ -110,6 +119,8 @@ class Game:
             self.bullet_timer()
             self.input()
             self.all_sprites.update(dt)
+            self.bullet_collision()
+            
 
             # draw 
             self.display_surface.fill('black')
