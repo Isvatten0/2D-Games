@@ -1,5 +1,5 @@
 from queue import Full
-from turtle import window_height
+from turtle import back, window_height
 from settings import *
 from player import Player
 from sprites import *
@@ -34,9 +34,19 @@ class Game:
         self.bullet_shoot_time = 0
         self.cooldown_duration = 100
 
+        # audio
+        self.background_music = pygame.mixer.Sound(join('Vampire survivor','audio','music.wav'))
+        self.background_music.set_volume(0.1)
+        self.shoot_sound = pygame.mixer.Sound(join('Vampire survivor','audio','shoot.wav'))
+        self.shoot_sound.set_volume(0.2)
+        self.impact_sound = pygame.mixer.Sound(join('Vampire survivor','audio','impact.ogg'))
+        self.impact_sound.set_volume(0.2)
+
         # setup
         self.load_images()
-        self.setup()        
+        self.setup()       
+        
+
 
 
         # sprites
@@ -72,6 +82,7 @@ class Game:
            # print('shoot')
            pos = self.gun.rect.center + self.gun.player_direction * 40
            Bullet(self.bullet_surf, pos, self.gun.player_direction, (self.all_sprites,self.bullet_sprites))
+           self.shoot_sound.play()
            self.can_shoot = False
            self.bullet_shoot_time = pygame.time.get_ticks()
 
@@ -94,15 +105,22 @@ class Game:
             else:
                 self.spawn_positions.append((entity.x,entity.y))
 
+        self.background_music.play()
+
     def bullet_collision(self):
         if self.bullet_sprites:
             for bullet in self.bullet_sprites:
                 # collision_sprites = pygame.sprite.spritecollide(sprite,group, dokill)
                 collision_sprites = pygame.sprite.spritecollide(bullet,self.enemy_sprites, False, pygame.sprite.collide_mask)
                 if collision_sprites:
+                    self.impact_sound.play()
                     for sprite in collision_sprites:
                         sprite.destroy()
                     bullet.kill()
+
+    def player_collision(self):
+        if pygame.sprite.spritecollide(self.player,self.enemy_sprites, False,pygame.sprite.collide_mask):
+            self.running = False
                 
     def run(self):
         while self.running:
@@ -120,6 +138,7 @@ class Game:
             self.input()
             self.all_sprites.update(dt)
             self.bullet_collision()
+            self.player_collision()
             
 
             # draw 
