@@ -8,6 +8,10 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
 
+        # Sprites
+        self.all_sprites = pygame.sprite.Group()
+        self.paddle_sprites = pygame.sprite.Group() # Used for collisions between the ball and the paddle
+
     def run(self):
         while self.running:
             # Setup delta time. Get Ticks then divide by 1000 get dt in miliseconds
@@ -19,9 +23,11 @@ class Game:
                     self.running = False
 
             # Update the game logic
+            self.all_sprites.update(dt)
             
             # Draw the game
-            self.display_surface.fill(COLORS['bg'])
+            self.display_surface.fill(COLORS['bg']) # draw the background
+            self.all_sprites.draw(self.display_surface) # draw the sprites on the surface  
             pygame.display.update()  # Can use flip as well
 
         pygame.quit()
