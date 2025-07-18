@@ -25,7 +25,7 @@ class Gun(pygame.sprite.Sprite):
 
         # setup the sprite
         super().__init__(groups)
-        self.gun_surface = pygame.image.load(join('Vampire survivor', 'images', 'gun', 'gun.png')).convert_alpha()
+        self.gun_surface = pygame.image.load(join('images', 'gun', 'gun.png')).convert_alpha()
         self.image = self.gun_surface
         self.rect = self.image.get_frect(center =self.player.rect.center + self.player_direction * self.distance)
     

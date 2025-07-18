@@ -7,7 +7,7 @@ class Player (pygame.sprite.Sprite):
         # edited from the tutorial, added 'Vampire survivor', 
         self.load_images() # must be before self.image
         self.state, self.frame_index =  'down', 0
-        self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'down', '0.png')).convert_alpha()
+        self.image = pygame.image.load(join('images', 'player', 'down', '0.png')).convert_alpha()
         self.rect = self.image.get_frect(center = pos)
         self.hitbox_rect = self.rect.inflate(-60,-100) # makes it so that it looks pixel perfect without having to use a mask
 
@@ -21,7 +21,7 @@ class Player (pygame.sprite.Sprite):
         self.frames = {'left': [],'right': [],'up': [],'down': []} # must match folders where animation is held
 
         for state in self.frames.keys():
-            for folder_path, sub_folders, file_names in walk(join('Vampire survivor','images','player',state)):
+            for folder_path, sub_folders, file_names in walk(join('images','player',state)):
                 if file_names:
                     for file_name in sorted(file_names, key= lambda name: int(name.split('.')[0])):
                         full_path = join(folder_path, file_name)
@@ -33,13 +33,13 @@ class Player (pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         self.direction.x = int(keys[pygame.K_RIGHT] or keys[pygame.K_d]) - int(keys[pygame.K_LEFT] or keys[pygame.K_a])
         # if self.direction.x > 0 and self.direction.y == 0 :
-        #    self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'right', '0.png')).convert_alpha()
+        #    self.image = pygame.image.load(join('images', 'player', 'right', '0.png')).convert_alpha()
         # if self.direction.x < 0 and self.direction.y == 0 :
-        #    self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'left', '0.png')).convert_alpha()
+        #    self.image = pygame.image.load(join('images', 'player', 'left', '0.png')).convert_alpha()
         # if self.direction.y < 0:
-        #    self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'up', '0.png')).convert_alpha()
+        #    self.image = pygame.image.load(join('images', 'player', 'up', '0.png')).convert_alpha()
         # if self.direction.y > 0:
-        #    self.image = pygame.image.load(join('Vampire survivor', 'images', 'player', 'down', '0.png')).convert_alpha()
+        #    self.image = pygame.image.load(join('images', 'player', 'down', '0.png')).convert_alpha()
         
         self.direction.y = int(keys[pygame.K_DOWN] or keys[pygame.K_s]) - int(keys[pygame.K_UP] or keys[pygame.K_w])
         if self.direction:

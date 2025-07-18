@@ -35,11 +35,11 @@ class Game:
         self.cooldown_duration = 100
 
         # audio
-        self.background_music = pygame.mixer.Sound(join('Vampire survivor','audio','music.wav'))
+        self.background_music = pygame.mixer.Sound(join('audio','music.wav'))
         self.background_music.set_volume(0.1)
-        self.shoot_sound = pygame.mixer.Sound(join('Vampire survivor','audio','shoot.wav'))
+        self.shoot_sound = pygame.mixer.Sound(join('audio','shoot.wav'))
         self.shoot_sound.set_volume(0.2)
-        self.impact_sound = pygame.mixer.Sound(join('Vampire survivor','audio','impact.ogg'))
+        self.impact_sound = pygame.mixer.Sound(join('audio','impact.ogg'))
         self.impact_sound.set_volume(0.2)
 
         # setup
@@ -63,13 +63,13 @@ class Game:
                 self.can_shoot = True
 
     def load_images(self):
-        self.bullet_surf = pygame.image.load(join('Vampire survivor', 'images', 'gun', 'bullet.png')).convert_alpha()
+        self.bullet_surf = pygame.image.load(join('images', 'gun', 'bullet.png')).convert_alpha()
 
-        folders = list(walk(join('Vampire survivor', 'images', 'enemies')))[0][1]
+        folders = list(walk(join('images', 'enemies')))[0][1]
         self.enemy_frames = {}
         for folder in folders:
             # print(folder)
-            for folder_path, _, file_names in walk(join('Vampire survivor', 'images', 'enemies', folder)):
+            for folder_path, _, file_names in walk(join('images', 'enemies', folder)):
                 self.enemy_frames[folder] = []
                 for file_name in sorted(file_names, key = lambda name: int(name.split('.')[0])):
                     full_path = join(folder_path,file_name)
@@ -87,7 +87,7 @@ class Game:
            self.bullet_shoot_time = pygame.time.get_ticks()
 
     def setup(self):
-        map = load_pygame(join('Vampire survivor', 'data', 'maps', 'world.tmx'))
+        map = load_pygame(join('data', 'maps', 'world.tmx'))
 
         for x,y,image in map.get_layer_by_name('Ground').tiles():
             Sprite((x * TILE_SIZE,y * TILE_SIZE),image,self.all_sprites)
