@@ -21,6 +21,7 @@ class Game:
             # Update the game logic
             
             # Draw the game
+            self.display_surface.fill(COLORS['bg'])
             pygame.display.update()  # Can use flip as well
 
         pygame.quit()
